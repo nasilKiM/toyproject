@@ -1,39 +1,46 @@
 // 다이어리(재사용)
 import styled from "styled-components";
-import { flexAlignCenter, flexCenter } from "../styles/common";
-import theme from "../styles/theme";
+import { flexAlignCenter, flexCenter } from "../../../../styles/common";
+import theme from "../../../../styles/theme";
 
-function Diary({ title, date, userName, content }) {
+function Card({ diary }) {
   return (
     <S.Wrapper>
       <S.Container>
         <div>
-          <S.Date>{date}</S.Date>
-          <S.UserName>{userName}</S.UserName>
+          <S.Date>{String(diary.createdAt)}</S.Date>
+          <S.UserName>
+            {/* {diary.User.id} */}
+            {diary.User.nick_name}
+            <img src={diary.User.profile_img} />
+          </S.UserName>
         </div>
         <S.Title>
-          <p>{title}</p>
+          <p>{diary.id}</p>
         </S.Title>
-        <S.DiaryContent>{content}</S.DiaryContent>
+        <S.DatailContent>{diary.content}</S.DatailContent>
       </S.Container>
     </S.Wrapper>
   );
 }
-export default Diary;
+export default Card;
 
 const Wrapper = styled.div`
-  width: 100%;
+  width: 30%;
   height: calc(100vh-50px);
   padding-top: 50px;
   padding-bottom: 50px;
+  ${flexCenter}
+  ${flexAlignCenter}
 `;
 
 const Container = styled.div`
-  width: 350px;
-  height: 350px;
+  width: 400px;
+  height: 450px;
   padding: 10px;
   background-color: white;
   border-radius: 15px;
+  box-shadow: 1.5cm;
   ${flexCenter}
   ${flexAlignCenter}
   flex-direction: column;
@@ -67,10 +74,9 @@ const UserName = styled.div`
   font-size: ${theme.FONT_SIZE.small};
 `;
 
-const DiaryContent = styled.div`
+const DatailContent = styled.div`
   width: 300px;
   height: 100%;
-  background-color: yellow;
 `;
 
 const S = {
@@ -79,5 +85,5 @@ const S = {
   Title,
   Date,
   UserName,
-  DiaryContent,
+  DatailContent,
 };

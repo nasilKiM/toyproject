@@ -1,7 +1,7 @@
+import DetailPage from "pages/Detail";
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../components/Layout";
 import HomePage from "../pages/Home";
-import OurDiary from "../pages/OurDiary";
 
 const router = createBrowserRouter([
   {
@@ -13,8 +13,8 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: "ourdiary",
-        element: <OurDiary />,
+        path: ":nick_name",
+        element: <DetailPage />,
       },
     ],
   },
