@@ -1,24 +1,35 @@
-// 다이어리(재사용)
 import styled from "styled-components";
-import { flexAlignCenter, flexCenter } from "../../../../styles/common";
 import theme from "../../../../styles/theme";
+import { flexAlignCenter, flexCenter } from "../../../../styles/common";
+import { Link, useNavigate } from "react-router-dom";
 
 function Card({ diary }) {
+  // console.log(Object.values(diary)[5]);
+
+  const navigate = useNavigate();
+  
+  const goDetail = () => {
+    navigate(`/${diary.User.nick_name}`,{
+      state:diary
+    });
+
+    window.scrollTo(0,0);
+  }
+
+  const myDate = String(diary.createdAt).split(' ').splice(0, 4).join(' ');
+
   return (
-    <S.Wrapper>
+    <S.Wrapper onClick={goDetail} >
       <S.Container>
         <div>
-          <S.Date>{String(diary.createdAt)}</S.Date>
-          <S.UserName>
-            {/* {diary.User.id} */}
-            {diary.User.nick_name}
-            <img src={diary.User.profile_img} />
-          </S.UserName>
+          <S.UserName>{diary.User.nick_name}</S.UserName>
+          <img src={diary.User.profile_img} style={{width:"70px",height:"70px", borderRadius: "50%"}}/>
         </div>
+          <S.Date>{myDate}</S.Date>
         <S.Title>
-          <p>{diary.id}</p>
+          <p>TITLE</p>
         </S.Title>
-        <S.DatailContent>{diary.content}</S.DatailContent>
+        <S.DetailContent>{diary.content}</S.DetailContent>
       </S.Container>
     </S.Wrapper>
   );
@@ -26,24 +37,31 @@ function Card({ diary }) {
 export default Card;
 
 const Wrapper = styled.div`
-  width: 30%;
-  height: calc(100vh-50px);
-  padding-top: 50px;
-  padding-bottom: 50px;
-  ${flexCenter}
-  ${flexAlignCenter}
+  width: 200px;
+  /* height: calc(100vh - 50px); */
+  height: 300px;
+  /* padding-top: 50px; */
+  /* padding-bottom: 50px; */
+  background-color: white;
+  margin: 100px 20px 0 20px;
+  border: 1px solid blue;
+  border-radius: 20px;
+  /* & :hover {
+    box-shadow: 5px 5px 5px 5px rgb(245, 245, 245)
+    stopPropagation()
+  } */
 `;
 
 const Container = styled.div`
-  width: 400px;
-  height: 450px;
-  padding: 10px;
-  background-color: white;
+  /* width: 300px; */
+  /* height: 350px; */
+  /* padding: 10px; */
+
   border-radius: 15px;
-  box-shadow: 1.5cm;
   ${flexCenter}
   ${flexAlignCenter}
-  flex-direction: column;
+    flex-direction: column;
+  padding: 20px;
   & > div {
     width: 100%;
     display: flex;
@@ -52,31 +70,44 @@ const Container = styled.div`
 `;
 
 const Title = styled.div`
-  width: fit-content;
-  height: 50px;
-  max-width: 350px;
+  /* width: fit-content; */
+  width: 300px;
+  /* height: 50px; */
+  /* max-width: 350px; */
   color: ${theme.PALETTE.black};
   font-size: ${theme.FONT_SIZE.medium};
   font-weight: ${theme.FONT_WEIGHT.bold};
   ${flexCenter}
   border-top: 2px solid black;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  padding-top: 5px;
 `;
 
 const Date = styled.div`
-  width: fit-content;
-  max-width: 100px;
+  width: 100%;
+  /* max-width: 100px; */
   font-size: ${theme.FONT_SIZE.small};
+  margin-top: 10px;
 `;
 
 const UserName = styled.div`
   width: fit-content;
   max-width: 100px;
-  font-size: ${theme.FONT_SIZE.small};
+  font-size: ${theme.FONT_SIZE.large};
+  font-weight: ${theme.FONT_WEIGHT.bold};
 `;
 
-const DatailContent = styled.div`
+const DetailContent = styled.div`
   width: 300px;
-  height: 100%;
+  height: 100px;
+  /* display: block; */
+  /* white-space: nowrap;  */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 `;
 
 const S = {
@@ -85,5 +116,5 @@ const S = {
   Title,
   Date,
   UserName,
-  DatailContent,
+  DetailContent,
 };

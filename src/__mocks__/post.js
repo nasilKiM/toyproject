@@ -78,8 +78,7 @@ import shortId from "shortid";
 
         (6) 게시글에는 프로필 이미지 및 작성자 정보가 존재한다.
         (7) 게시글 컨텐츠의 글자 수가 100글자 이상이라면 ...으로 표시하고 더보기 버튼을 누르면 모든 게시물의 정보를 확인한다
-        (8) 본인이 작성한 게시글은 본인이 삭제 및 수정할 수 있다 
-            : 회원가입 + 로그인창 필요?
+        (8) 본인이 작성한 게시글은 본인이 삭제 및 수정할 수 있다
 
         (9) 댓글의 경우 게시글과 마찬가지로 프로필 이미지, 작성 날짜, 내용이 모두 보여야하며
             본인이 작성한 글은 수정 및 삭제가 가능하다
@@ -118,9 +117,12 @@ export const MockPost = (count) =>
     .map(() => ({
       id: shortId.generate(),
       content: faker.lorem.paragraph(),
+      detailContent: faker.lorem.paragraphs(5),
+      title: faker.lorem.sentence(5),
       User: {
         id: shortId.generate(),
         nick_name: faker.name.firstName(),
+        full_name: faker.name.fullName(),
         profile_img: faker.image.avatar(),
       },
       Post_img: Array(Math.floor(Math.random() * 3) + 1)
@@ -139,9 +141,15 @@ export const MockPost = (count) =>
             },
 
             myComment: "N",
-            createdAt: faker.date.between("2023-01-01T00:00:00.000Z", "2023-01-31T00:00:00.000Z"),
+            createdAt: faker.date.between(
+              "2023-01-01T00:00:00.000Z",
+              "2023-01-31T00:00:00.000Z"
+            ),
           };
         }),
-      createdAt: faker.date.between("2023-01-01T00:00:00.000Z", "2023-01-31T00:00:00.000Z"),
+      createdAt: faker.date.between(
+        "2023-01-01T00:00:00.000Z",
+        "2023-01-31T00:00:00.000Z"
+      ),
       myPost: "N",
     }));

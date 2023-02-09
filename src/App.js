@@ -5,7 +5,9 @@ import router from "./routes/routing";
 
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "./styles/global";
-import theme from "./styles/theme";
+import theme from './styles/theme'
+
+
 
 function App() {
   // const Posts = MockPost(5);
@@ -13,14 +15,10 @@ function App() {
   // console.log(Posts);
 
   return (
-    <>
-      <div className="App">
-        <ThemeProvider theme={theme}>
-          <GlobalStyles />
-          <RouterProvider router={router} />
-        </ThemeProvider>
-      </div>
-    </>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <RouterProvider router={router} />
+      </ThemeProvider>
   );
 }
 
