@@ -28,8 +28,8 @@ function DetailPage() {
         <S.DetailContent>
           {state.detailContent}
           <div>
-            친구들과 주변 선생님들에게 "오늘의 일기"를 소개해 주세요! 이용자가 많아질수록 일기
-            주제가 풍부해집니다!
+            친구들과 주변 선생님들에게 "오늘의 일기"를 소개해 주세요!
+            <p>이용자가 많아질수록 일기주제가 풍부해집니다!</p>
           </div>
         </S.DetailContent>
       </S.Container>
