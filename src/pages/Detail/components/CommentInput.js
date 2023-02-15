@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { mockData } from "__mocks__/post";
 import { flexCenter, flexAlignCenter } from "../../../styles/common";
 import CommentBoard from "./CommentBoard";
 
-function CommentInput(props) {
+function CommentInput({ commentList }) {
   const [inputValue, setInputValue] = useState(""); //input창 빈문자열로 시작
-  const [comList, setCommentList] = useState(JSON.parse(localStorage.getItem("comList") || "[]"));
+  const [comList, setCommentList] = useState(commentList);
+  console.log("comList", comList);
   const addItem = (e) => {
     setCommentList([...comList, inputValue]); //기존유지+ 새로운 input value
     setInputValue(""); // 바꾸고싶은 값만 넣기

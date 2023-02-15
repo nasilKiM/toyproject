@@ -141,15 +141,11 @@ export const MockPost = (count) =>
             },
 
             myComment: "N",
-            createdAt: faker.date.between(
-              "2023-01-01T00:00:00.000Z",
-              "2023-01-31T00:00:00.000Z"
-            ),
+            createdAt: faker.date.between("2023-01-01T00:00:00.000Z", "2023-01-31T00:00:00.000Z"),
           };
         }),
-      createdAt: faker.date.between(
-        "2023-01-01T00:00:00.000Z",
-        "2023-01-31T00:00:00.000Z"
-      ),
+      createdAt: faker.date.between("2023-01-01T00:00:00.000Z", "2023-01-31T00:00:00.000Z"),
       myPost: "N",
     }));
+
+export const mockData = MockPost(20);

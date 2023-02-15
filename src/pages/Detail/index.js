@@ -33,7 +33,7 @@ function DetailPage() {
           </div>
         </S.DetailContent>
       </S.Container>
-      <CommentInput />
+      <CommentInput commentList={state.Comments} />
     </S.Wrapper>
   );
 }

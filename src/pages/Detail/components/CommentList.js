@@ -43,7 +43,10 @@ function CommentList({ item, comList, setCommentList }) {
             }}
           />
         ) : (
-          <span>{item}</span>
+          <>
+            <img src={item.User.profile_img} alt="profile"></img>
+            <span>{item.content}</span>
+          </>
         )}
         <button
           onClick={() => {
