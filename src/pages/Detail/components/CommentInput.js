@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useState } from "react";
 import styled from "styled-components";
 import { mockData } from "__mocks__/post";
+import { faker } from "@faker-js/faker";
 import { flexCenter, flexAlignCenter } from "../../../styles/common";
 import CommentBoard from "./CommentBoard";
 
@@ -19,6 +20,16 @@ function CommentInput({ commentList }) {
   // f12 -> application -> local storage -> localhost에서 확인가능
   // JSON.stringfy -> 문자화시키는거 + JSON.parse는 배열화하는거
 
+  const updateInput = (event) => {
+    console.log();
+    let value = event.target.value;
+    return setInputValue({
+      User: { nick_name: "글쓴이", profile_img: faker.image.avatar() },
+      content: value,
+      Comments: { myComment: "Y" },
+    });
+  };
+
   return (
     <>
       <S.list>
@@ -26,11 +37,12 @@ function CommentInput({ commentList }) {
       </S.list>
       <S.ComWrapper>
         <input
-          value={inputValue}
+          value={inputValue.value}
+          // inputValue 가 object라서 키값 접근을 위해서 .value를 추가함. (그전에는 [object, Object]로 찍혔음)
           // 버튼을 클릭했을 때, input 의 value 값을 비운다.}
           type="text"
           placeholder="착한 댓글을 달아주세요"
-          onChange={(event) => setInputValue(event.target.value)}
+          onChange={updateInput}
         />
         <S.btn onClick={addItem}>저장</S.btn>
       </S.ComWrapper>
@@ -67,11 +79,8 @@ const btn = styled.div`
 
 const list = styled.div`
   width: 100%;
-  max-width: 1400px;
-  margin: 15px;
   box-sizing: border-box;
-
-  ${flexCenter};
+  ${flexAlignCenter};
 `;
 
 const S = {
