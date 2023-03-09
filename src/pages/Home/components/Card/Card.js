@@ -1,48 +1,30 @@
 import styled from "styled-components";
 import theme from "../../../../styles/theme";
 import { flexAlignCenter, flexCenter } from "../../../../styles/common";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import moment from "moment";
 
 function Card({ diary }) {
-  // console.log(Object.values(diary)[5]);
-
   const navigate = useNavigate();
-
+  //home에서 받은 데이터와 detail페이지로 이동하면서 연결이 끊어진것(데이터랜더링)
   const goDetail = () => {
     navigate(`/${diary.User.nick_name}`, {
-      state: diary,
+      // state: diary,
     });
-
     window.scrollTo(0, 0);
   };
 
-  // const myDate = String(diary.createdAt).split(' ').splice(0, 4).join(' ');
-  // 날짜 파싱
-
   const myDate = moment(diary.createdAt);
-  //const myDate = String(diary.createdAt).split(' ').splice(0, 4).join(' ');
-
   const today = moment("2023-01-31 23:59:59", "YYYY-MM-DD hh:mm:ss");
-  //today에는 오늘 날짜가 moment 객체로 저장
-
   const diff = today.diff(myDate, "days");
-  //diff에는 오늘 날짜와 myDate의 차이가 일 단위로 저장됩니다.
-
-  /*
-moment() : 날짜를 비교하고 원하는 포맷으로 변환할 수 있음.
- diff에는 오늘 날짜와 myDate의 차이가 일 단위로 저장됩니다.
-*/
   let dateString;
 
-  // diff===0 만 있으면 시간 차이가 얼마 안날때 23시55분이나 00시15분때도 같은 날로 인식. day()로 요일정보까지 비교후 같은지 확인.
-  console.log("===================> " + myDate);
+  // util폴더에 넣기 (함수화 export )
   if (diff === 0 && myDate.day() === today.day()) {
     dateString = "3시간 전";
   } else if (diff > 2) {
     dateString = myDate.format("YYYY-MM-DD");
   } else if (diff > 0) {
-    // console.log(diff);
     dateString = `${diff}일 전`;
   } else {
     dateString = myDate.format("YYYY-MM-DD");

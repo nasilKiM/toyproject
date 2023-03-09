@@ -1,48 +1,33 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
-import { mockData } from "__mocks__/post";
-import { faker } from "@faker-js/faker";
 import { flexCenter, flexAlignCenter } from "../../../styles/common";
 import CommentBoard from "./CommentBoard";
+import { useDispatch } from "react-redux";
+import { ADD_COMMENT } from "../../../store/diaryCom";
 
-function CommentInput({ commentList }) {
-  const [inputValue, setInputValue] = useState(""); //input창 빈문자열로 시작
-  const [comList, setCommentList] = useState(commentList);
-  console.log("comList", comList);
-  const addItem = (e) => {
-    setCommentList([...comList, inputValue]); //기존유지+ 새로운 input value
-    setInputValue(""); // 바꾸고싶은 값만 넣기
-  };
-  useEffect(() => {
-    localStorage.setItem("comList", JSON.stringify(comList)); // 웹브라우저에 저장하기(첫번째는 key, 두번째는 값(value))
-  }, [comList]); // comList 값이 바뀔때마다 localstorage에 값을 저장,삭제,수정한다.
-  // f12 -> application -> local storage -> localhost에서 확인가능
-  // JSON.stringfy -> 문자화시키는거 + JSON.parse는 배열화하는거
+function CommentInput({ commentList, id, deleteComment }) {
+  const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatch();
 
-  const updateInput = (event) => {
-    console.log();
-    let value = event.target.value;
-    return setInputValue({
-      User: { nick_name: "글쓴이", profile_img: faker.image.avatar() },
-      content: value,
-      Comments: { myComment: "Y" },
-    });
+  const addItem = () => {
+    if (!inputValue) return alert("글을 작성해주세요");
+    dispatch(ADD_COMMENT({ id, content: inputValue }));
+    setInputValue("");
   };
+  console.log("댓글추가", id);
 
   return (
     <>
       <S.list>
-        <CommentBoard comList={comList} setCommentList={setCommentList} />
+        <CommentBoard deleteComment={deleteComment} comList={commentList} id={id} />
       </S.list>
       <S.ComWrapper>
         <input
-          value={inputValue.value}
-          // inputValue 가 object라서 키값 접근을 위해서 .value를 추가함. (그전에는 [object, Object]로 찍혔음)
-          // 버튼을 클릭했을 때, input 의 value 값을 비운다.}
+          value={inputValue}
           type="text"
           placeholder="착한 댓글을 달아주세요"
-          onChange={updateInput}
+          onChange={(e) => setInputValue(e.target.value)}
         />
         <S.btn onClick={addItem}>저장</S.btn>
       </S.ComWrapper>
@@ -62,7 +47,6 @@ const ComWrapper = styled.div`
     height: 9rem;
     border: 1px solid #f9d72f;
     border-radius: 10px;
-    /* ${flexCenter} */
   }
 `;
 
